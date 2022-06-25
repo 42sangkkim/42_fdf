@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:38:19 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/25 20:35:15 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:23:02 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
 	t_mlx	mlx;
-	
+
 	fdf = init_fdf(argc, argv);
 	mlx = init_mlx(fdf);
 	update_fdf(fdf);

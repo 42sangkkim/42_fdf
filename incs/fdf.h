@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:54:05 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/25 20:22:55 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/25 20:54:14 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define SIN30 0.5
 
 # define PADDING 0.2
+# define TITLE "sangkkim fdf"
 
 typedef struct s_mlx
 {
@@ -38,6 +39,6 @@ typedef struct s_fdf
 	t_pixel	origin;
 	int		**edges;
 	t_pixel	**dots;
-}
+}	t_fdf;
 
 #endif

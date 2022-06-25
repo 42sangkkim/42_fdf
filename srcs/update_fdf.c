@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:04:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/25 19:18:48 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:24:45 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ t_pixel	volume2plane(int x, int y, int z)
 {
 	t_pixel	plane_pos;
 
-	plane_pos.x = (int)((double)(x - y) * COS30);
-	plane_pos.y = (int)((double)(x + y) * SIN30) + z;
+	plane_pos.x = (int)((double)(x - y)*COS30);
+	plane_pos.y = (int)((double)(x + y)*SIN30) + z;
 	plane_pos.color = set_color(z);
 	return (pixel);
 }
