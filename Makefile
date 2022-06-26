@@ -1,17 +1,24 @@
-NAME:=mlx_test
+NAME:=fdf
 
 CC:=cc
-CFLAGS:=
+CFLAGS:=#-Wall -Wextra -Werror
 
 MLX_DIR:=minilibx_macos
 MLX_NAME:=mlx
-MLX_FLAGS:=-L$(MLX_DIR) -l$(MLX_NAME) -framework OpenGL -framework AppKit
+MLX_FLAGS:= -framework OpenGL -framework AppKit
+
+LIBFT_DIR:=libft
+LIBFT_NAME:=ft
 
 INC_DIR:=incs
 INCS:=fdf.h
 
 SRC_DIR:=srcs
-SRCS:=fdf.c init_fdf.c init_mlx.c update_fdf.c draw_fdf.c
+SRCS:=srcs/main.c srcs/init.c srcs/util1.c
 
 $(NAME) : $(SRCS)
-	$(CC) $(CFLAGS) -o $@ $^ $(MLX_FLAGS)
+	make -C $(MLX_DIR)
+	make -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) -o $@ $^ \
+		-I $(MLX_DIR)/mlx.h -L$(MLX_DIR) -l$(MLX_NAME) $(MLX_FLAGS)\
+		-I libft/libft.h -L$(LIBFT_DIR) -l$(LIBFT_NAME)

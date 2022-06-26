@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:54:05 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/25 20:54:14 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:34:29 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,30 @@ typedef struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		screen_width;
+	int		screen_height;
 }	t_mlx;
 
-typedef struct s_pixel
+typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	color;
-}	t_pixel;
+	double	x;
+	double	y;
+	double	z;
+}	t_point;
 
-typedef struct s_fdf
+typedef struct s_map
 {
-	int		width;
-	int		height;
-	t_pixel	origin;
-	int		**edges;
-	t_pixel	**dots;
-}	t_fdf;
+	size_t	width;
+	size_t	height;
+	t_point	**data;
+}	t_map;
+
+typedef	struct s_transform
+{
+	double	rotate;
+	double	x_offset;
+	double	y_offset;
+	double	z_offset;
+}	t_transform;
 
 #endif

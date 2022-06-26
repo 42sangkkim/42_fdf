@@ -6,10 +6,11 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:04:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/25 21:24:45 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/26 18:58:33 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "fdf.h"
 
 t_pixel	volume2plane(int x, int y, int z);
@@ -39,22 +40,53 @@ int	update_fdf(t_fdf fdf)
 	}
 }
 
-t_pixel	volume2plane(int x, int y, int z)
+void	volume_to_plane(t_point **edges, t_fdf fdf, t_point (*project)(t_point))
 {
-	t_pixel	plane_pos;
+	const double	pi = 3.141592;
+	size_t			i;
+	size_t			j;
 
-	plane_pos.x = (int)((double)(x - y)*COS30);
-	plane_pos.y = (int)((double)(x + y)*SIN30) + z;
-	plane_pos.color = set_color(z);
-	return (pixel);
+	fdf.tr.sin = fsin((double)(fdf.tr.rotate) * 2 * pi / RESOLUTION);
+	fdf.tr.cos = fcps((double)(fdf.tr.rotate) * 2 * pi / RESOLUTION);
+	i = 0;
+	while (i < fdf.height)
+	{
+		j = 0;
+		while (j < fdf.width)
+		{
+			edges[i][j] = transform(fdf.map[i][j], fdf.tr, project);
+		}
+	}
 }
 
-t_pixel	plane2window(t_pixel plane_pos, t_pixel origin)
+t_point	transform(t_point p_3d, t_translate tr, t_point (*project)(t_point))
 {
-	t_pixel	window_pos;
+	t_point	p_2d;
 
-	window_pos.x = origin.x + plane_pos.x;
-	window_pos.y = origin.y - plane_pos.y;
-	window_pos.color = plane_pos.color;
-	return (window_pos);
+	p_3d = rotate(p3d, tr.sin, tr.cos, tr.alt);
+	p_2d = project(p_3d);
+	p_2d = translate(p_2d, tr.dx, tr.dy, tr.zoom);
+	return (p_2d);
+}
+
+t_point	rotate(t_point from, double sin, double cos, double alt)
+{
+	t_point	to;
+
+	to.x = (from.x * cos) - (from.y * sin);
+	to.y = (from.x * sin) + (from.y * cos);
+	to.z = (from.z * alt);
+	to.color = from.color;
+	return (to);
+}
+
+t_point	translate(t_point from, double dx, double dy, double zoom)
+{
+	t_point	to;
+
+	to.x = (from.x + dx) * zoom;
+	to.y = (from.y + dy) * zoom;
+	to.z = 0;
+	to.color = from.color;
+	return (to);
 }

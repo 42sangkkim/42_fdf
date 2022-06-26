@@ -6,28 +6,43 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 00:50:21 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/26 15:34:29 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/26 22:13:26 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
+//#include "utils.h"
+#include "../libft/libft.h"
+#define BUFFER_SIZE 100
 
-void	init(t_map *map, t_mlx mlx, int fd)
+void	free_darr_str(char ***p);
+size_t	ft_strcnt(const char *s, int c);
+
+char	*read_file(int fd);
+char	***split_to_data(char *data);
+
+char	***get_file_data(int argc, char **argv)
 {
-	char	*file_data;
-	char	***words;
+	int		fd;
+	char	*content;
+	char	***data;
 
-	file_data = read_file(fd);
-	if (!file_data)
-		exit(-1);
-	*map = parse_to_intmap(content);
-	words = ft_mega_split(file_data);
-	*map = parse_data(words);
-	if (!(map -> map))
-		exit(-1);
-	*mlx = init_mlx(map);
+	if (argc != 2)
+		return (NULL);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 3)
+		return (NULL);
+	content = read_file(fd);
+	close(fd);
+	if (!content)
+		return (NULL);
+	data = split_to_data(content);
+	free(content);
+	if (!data)
+		return (NULL);
+	return (data);
 }
 
 char	*read_file(int fd)
@@ -59,33 +74,59 @@ char	*read_file(int fd)
 	return (NULL);
 }
 
-t_map	parse_data(char ***words)
+char	***split_to_data(char *content)
 {
-	t_map	map;
-	int		*arr;
+	size_t	i;
+	char	**lines;
+	char	***words;
 
-	map.height = ft_arrlen(words);
-	map.width = ft_arrlen(*words);
-	map.map = malloc(map.height * sizeof(int *));
-	arr = malloc(map.height * map.width * sizeof(int));
-	if (!map.map || !arr)
+	lines = ft_split(content, '\n');
+	free(content);
+	if (!lines)
+		return (NULL);
+	words = ft_calloc(ft_arrlen(lines) + 1, sizeof(char **));
+	if (!words)
 	{
-		free(map.map);
-		free(arr);
-		map.map = NULL;
-		return (map);
+		free_arr(lines);
+		return (NULL);
 	}
-	x = 0;
-	while (x < map.height)
+	i = 0;
+	while (lines[i]);
 	{
-		map.map[x] = arr;
-		y = 0;
-		while (y < map.width)
+		words[i] = ft_split(linea[i]);
+		if (!words[i])
 		{
-			*arr++ = ft_atoi(words[x][y]);
-			y++;
+			free_arr(lines);
+			free_darr_str(words[i]);
+			return (NULL);
 		}
-		x++;
+
+		i++;
+
+
+char	***split_to_data(char *data)
+{
+	size_t	i;
+	char	***words;
+	char	*nl;
+
+	i = ft_strcnt(data, '\n');
+	words = ft_calloc(i + 1, sizeof(char **));
+	i = 0;
+	while (words)
+	{
+		nl = ft_strchr(data, '\n');
+		if (!nl)
+			return (words);
+		*nl = '\0';
+		words[i] = ft_split(data, ' ');
+		if (!words[i])
+		{
+			free_darr_str(words);
+			return (NULL);
+		}
+		data = nl + 1;
+		i++;
 	}
-	return (map);
+	return (NULL);
 }
