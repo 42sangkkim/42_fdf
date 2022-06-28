@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 22:04:46 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 01:01:11 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 03:28:05 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 #include <libft.h>
 #include <utils.h>
+
+#include <fdf.h>
 
 void	**malloc_array(size_t height, size_t width, size_t size)
 {
@@ -40,19 +42,14 @@ void	**malloc_array(size_t height, size_t width, size_t size)
 	return (arr);
 }
 
-int	color_picker(int c1, int c2, double ratio)
+t_color	color_picker(t_color c1, t_color c2, double ratio)
 {
-	int		color;
-	double	r;
-	double	g;
-	double	b;
+	t_color	color;
+	double	r_ratio;
 
-	r = ((double)(c1 & 0xFF0000 >> 16) * (1 - ratio))
-		+ ((double)(c2 & 0xFF0000 >> 16) *  ratio);
-	g = ((double)(c1 & 0x00FF00 >> 8) * (1 - ratio))
-		+ ((double)(c2 & 0x00FF00 >> 8) * ratio);
-	b = ((double)(c1 & 0x0000FF) * (1 - ratio))
-		+ ((double)(c2 & 0x0000FF) * ratio);
-	color = (((int)r & 0xFF) << 16) + (((int)g & 0xFF) << 8) + ((int)b & 0xFF);
+	r_ratio = 1 - ratio;
+	color.rgb.r = (double)c1.rgb.r * r_ratio + (double)(c2.rgb.r *  ratio);
+	color.rgb.g = (double)c1.rgb.g * r_ratio + (double)(c2.rgb.g *  ratio);
+	color.rgb.b = (double)c1.rgb.b * r_ratio + (double)(c2.rgb.b *  ratio);
 	return (color);
 }

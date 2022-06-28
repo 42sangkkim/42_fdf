@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 18:06:33 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 02:02:57 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 03:28:34 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_line(t_mlx *mlx, t_point p1, t_point p2)
 	{
 		mlx_pixel_put(mlx -> mlx_ptr, mlx -> win_ptr,
 			(int)pixel[0], (int)pixel[1],
-			color_picker(p1.color, p2.color, ratio));
+			color_picker(p1.color, p2.color, ratio).value);
 		pixel[0] += d_pixel[0];
 		pixel[1] += d_pixel[1];
 		ratio += d_ratio;

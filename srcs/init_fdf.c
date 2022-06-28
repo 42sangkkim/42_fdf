@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:19:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 01:02:11 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 03:29:22 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	parse_coordinate(t_fdf *fdf, char ***file_data)
 			point.x = (double)((int)i - ox);
 			point.y = (double)((int)j - oy);
 			point.z = (double)ft_atoi(file_data[i][j]);
-			point.color = MIN_COLOR;
+			point.color.value = MIN_COLOR;
 			fdf -> volume[i][j] = point;
 			j++;
 		}
@@ -84,7 +84,7 @@ void	init_colors(t_point **volume, size_t height, size_t width)
 		j = 0;
 		while (j < width)
 		{
-			volume[i][j].color = color_picker(MIN_COLOR, MAX_COLOR,
+			volume[i][j].color = color_picker((t_color)MIN_COLOR, (t_color)MAX_COLOR,
 					(volume[i][j].z - z_range[0] / diff_z));
 			j++;
 		}

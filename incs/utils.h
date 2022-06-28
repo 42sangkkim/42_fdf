@@ -6,12 +6,14 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 14:01:10 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 00:06:29 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 03:29:45 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
+
+# include <fdf.h>
 
 // srcs/util1.c
 size_t	ft_arrlen(void *arr);
@@ -22,6 +24,6 @@ void	exit_msg(int code, char *msg);
 
 // srcs/util2.c
 void	**malloc_array(size_t height, size_t width, size_t size);
-int		color_picker(int c1, int c2, double ratio);
+t_color	color_picker(t_color c1, t_color c2, double ratio);
 
 #endif

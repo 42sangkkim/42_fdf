@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 01:12:11 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 03:11:50 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 03:36:18 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int	update(void *param)
 
 	mlx = (t_mlx *)((void **)param)[0];
 	fdf = (t_fdf *)((void **)param)[1];
+	if (fdf -> rotating)
+		fdf -> tr.rotate ++;
+	fdf -> tr.rotate = (double)((int)(fdf -> tr.rotate) % (int)ROTATE_RESOLUTION);
 	if (ft_memcmp(&tr, &(fdf -> tr), sizeof(t_transform)))
 	{
 		tr = fdf -> tr;
@@ -71,5 +74,7 @@ int	key_hook(int keycode, void *param)
 		fdf -> tr.zoom *= 1.2;
 	else if (keycode == 27) // +
 		fdf -> tr.zoom *= 1. / 1.2;
+	else if (keycode == 49) // sp
+		fdf -> rotating = !(fdf -> rotating);
 	return (keycode);
 }
