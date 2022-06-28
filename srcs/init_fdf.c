@@ -6,93 +6,69 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:19:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/28 16:54:59 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/28 23:29:29 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdlib.h>
-#include "../incs/fdf.h"
-#include "../incs/config.h"
-#include "../libft/libft.h"
 
-void	parse_volume(t_fdf *fdf, char ***data);
-void	update_z_range(double *max, double *min, double value);
-void	set_color(t_point **volume, size_t height, size_t width
-		, double z_min, double z_max);
+#include <libft.h>
+
+#include <fdf.h>
+#include <utils.h>
+#include <config.h>
 
 // draw_fdf.c
 int		get_gradation(int c1, int c2, double ratio);
 
-char	***
-
-t_fdf	*init_fdf(char ***data)
-{
-	t_fdf	*fdf;
-	size_t	width;
-	size_t	height;
-
-	fdf = malloc(sizeof(t_fdf));
-	if (!fdf)
-		return (NULL);
-	width = ft_arrlen(data[0]);
-	height = ft_arrlen(data);
-	fdf -> volume = (t_point **)malloc_array(height, width, sizeof(t_point));
-	fdf -> screen = (t_point **)malloc_array(height, width, sizeof(t_point));
-	if (!(fdf -> volume) || !(fdf -> screen))
-	{
-		free_arr(fdf -> volume);
-		free_arr(fdf -> screen);
-		free(fdf);
-		return (NULL);
-	}
-	parse_volume(fdf, data);
-	return (fdf);
-}
-
-void	parse_volume(t_fdf *fdf, char ***data)
+void	parse_coordinate(t_fdf *fdf, char ***file_data)
 {
 	size_t	i;
 	size_t	j;
-	double	z_max;
-	double	z_min;
 	t_point	point;
 
-	z_max = (double)ft_atoi(data[0][0]);
-	z_min = z_max;
-	height = fdf -> height;
 	i = 0;
-	while (i < (fdf -> height))
+	while (i < fdf -> height)
 	{
 		j = 0;
-		while (j < (fdf -> width))
+		while (j < fdf -> width)
 		{
-			point.x = (double)(i - (fdf -> height) / 2);
-			point.y = (double)(j - (fdf -> width) / 2)
-			point.z = (double)ft_atoi(data[i][j]);
-			update_z_range(&z_max, &z_min, point.z);
+			point.x = (double)(i - fdf -> height / 2);
+			point.y = (double)(j - fdf -> width / 2);
+			point.z = (double)ft_atoi(file_data[i][j]);
+			point.color = MIN_COLOR;
 			fdf -> volume[i][j] = point;
 			j++;
 		}
 		i++;
 	}
-	set_color(fdf -> volume, fdf -> height, fdf -> width, z_man, z_min);
 }
 
-void	update_z_range(double *max, double *min, double value)
-{
-	if (*max < value)
-		*max = value;
-	if (*min > value)
-		*min = value;
-}
-
-void	set_color(t_point **volume, size_t height, size_t width
-		, double z_min, double z_max)
+void	init_colors(t_point **volume, size_t height, size_t width)
 {
 	size_t	i;
 	size_t	j;
+	double	z_max;
+	double	z_min;
 	double	range;
 
+	z_max = volume[0][0].z;
+	z_min = z_max;
+	i = 0;
+	while (i < height)
+	{
+		j = 0;
+		while (j < width)
+		{
+			if (z_max < volume[i][j].z)
+				z_max = volume[i][j].z;
+			if (z_min > volume[i][j].z)
+				z_min = volume[i][j].z;
+			j++;
+		}
+		i++;
+	}
 	range = z_max - z_min;
 	i = 0;
 	while (i < height)
@@ -100,10 +76,61 @@ void	set_color(t_point **volume, size_t height, size_t width
 		j = 0;
 		while (j < width)
 		{
-			volume[i][j].color = 
-				get_gradation(MIN_COLOR, MAX_COLOR, range / (volume[i][j] - z_min);
+			volume[i][j].color = get_gradation(
+					MIN_COLOR, MAX_COLOR, range / (volume[i][j].z - z_min));
 			j++;
 		}
 		i++;
 	}
+}
+
+char	*read_file(int fd)
+{
+	char	buffer[BUFFER_SIZE + 1];
+	char	*data;
+	char	*tmp;
+	ssize_t	read_len;
+
+	data = ft_strdup("");
+	while (1)
+	{
+		if (!data)
+			exit_msg(-1, "malloc error\n");
+		read_len = read(fd, buffer, BUFFER_SIZE);
+		if (read_len > 0)
+		{
+			buffer[read_len] = '\0';
+			tmp = ft_strjoin(data, buffer);
+			free(data);
+			data = tmp;
+		}
+		else if (read_len == 0)
+			break ;
+		else
+			exit_msg(-1, "read error\n");
+	}
+	return (data);
+}
+
+char	***split_to_data(char *content)
+{
+	size_t	i;
+	char	**lines;
+	char	***words;
+
+	lines = ft_split(content, '\n');
+	if (!lines)
+		exit_msg(-1, "malloc error\n");
+	words = ft_calloc(ft_arrlen(lines) + 1, sizeof(char **));
+	if (!words)
+		exit_msg(-1, "malloc error\n");
+	i = 0;
+	while (lines[i])
+	{
+		words[i] = ft_split(lines[i], ' ');
+		if (!words[i++])
+			exit_msg(-1, "malloc error\n");
+	}
+	free_arr(lines);
+	return (words);
 }

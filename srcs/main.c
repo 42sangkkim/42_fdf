@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:55:08 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/28 16:49:39 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/28 23:10:48 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 #include <unistd.h>
 
 #include <mlx.h>
+
 #include <fdf.h>
+#include <utils.h>
 
 void	init(t_mlx *mlx, t_fdf *fdf, char *file_name);
 
@@ -26,7 +28,7 @@ int	main(int argc, char **argv)
 	t_fdf	fdf;
 
 	if (argc != 2)
-		exit_msg("fdf accept just one parameter");
+		exit_msg(-1, "fdf accept just one parameter");
 	init(&mlx, &fdf, argv[1]);
 	//print_filedata(file_data);
 	return (0);

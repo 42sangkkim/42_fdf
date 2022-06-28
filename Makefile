@@ -16,7 +16,8 @@ LIBFT_NAME:=ft
 INC_DIR:=incs
 
 SRC_DIR:=srcs
-SRCS:=srcs/main.c srcs/init.c srcs/util1.c
+SRCS:=srcs/main.c srcs/init.c srcs/init_fdf.c\
+	  srcs/util1.c srcs/util2.c
 
 $(NAME) : $(SRCS)
 	make -C $(MLX_DIR)

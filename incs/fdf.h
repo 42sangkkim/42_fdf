@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:54:05 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/28 15:54:17 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/28 23:25:34 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # define COS30 0.86602540
 # define SIN30 0.5
-
-# define PADDING 0.2
-# define TITLE "sangkkim fdf"
 
 typedef struct s_mlx
 {

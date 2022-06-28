@@ -6,17 +6,21 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:20:49 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/27 17:18:23 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/28 23:22:39 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONFIG_H
 # define CONFIG_H
 
+// FILE READ
+# define BUFFER_SIZE 100
+
 // SCREEN
 
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
+# define TITLE "sangkkim FdF"
 # define MIN_COLOR 0xFFFFFF
 # define MAX_COLOR 0xFF0000
 

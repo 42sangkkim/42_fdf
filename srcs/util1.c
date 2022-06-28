@@ -6,11 +6,14 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 17:16:54 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/27 14:07:51 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/28 23:27:20 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
+
+#include <libft.h>
 
 size_t	ft_arrlen(void **arr)
 {
@@ -22,7 +25,7 @@ size_t	ft_arrlen(void **arr)
 	return (len);
 }
 
-void	free_str_arr(char **arr)
+void	free_arr(char **arr)
 {
 	size_t	i;
 
@@ -32,14 +35,14 @@ void	free_str_arr(char **arr)
 	free(arr);
 }
 
-void	free_str_darr(char ***darr)
+void	free_darr(char ***darr)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
 	while (darr[i])
-		free_str_arr(darr[i++]);
+		free_arr(darr[i++]);
 	free(darr);
 }
 
@@ -58,3 +61,13 @@ size_t	ft_strcnt(const char *s, int c)
 		cnt++;
 	return (cnt);
 }
+
+void	exit_msg(int code, char *s)
+{
+	if (code == 0)
+		write(1, s, ft_strlen(s));
+	else
+		write(2, s, ft_strlen(s));
+	exit(code);
+}
+
