@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 18:06:33 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/26 19:06:15 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/27 16:40:55 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	draw_fdf(t_mlx mlx, t_fdf fdf)
 		y = 0;
 		while (y <= fdf.height)
 		{
-			if (x != fdf.width)
-				draw_line(mlx, fdf.dots[x][y], dots[x + 1][y]);
-			if (y != fdf.height)
-				draw_line(mlx, fdf.dots[x][y], dots[x][y + 1]);
+			if (x)
+				draw_line(mlx, fdf.screen[x - 1][y], fdf.screen[x][y]);
+			if (y)
+				draw_line(mlx, fdf.screen[x][y - 1], fdf.screen[x][y]);
 			y++;
 		}
 		x++;

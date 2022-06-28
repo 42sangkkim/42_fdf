@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 17:21:05 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/26 17:22:18 by sangkkim         ###   ########.fr       */
+/*   Created: 2022/06/27 14:01:10 by sangkkim          #+#    #+#             */
+/*   Updated: 2022/06/27 14:09:15 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include <stdlib.h>
-
-size_t	ft_arrlen(void **p);
-void	free_darr_str(char ***p);
+size_t	ft_arrlen(void *arr);
+void	free_str_arr(char **arr);
+void	free_str_darr(char ***darr);
+size_t	ft_strcnt(const char *s, int c);
 
 #endif

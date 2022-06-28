@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 17:16:54 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/26 21:41:39 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/27 14:07:51 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,25 @@ size_t	ft_arrlen(void **arr)
 	return (len);
 }
 
-void	free_darr_str(char ***p)
+void	free_str_arr(char **arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
+void	free_str_darr(char ***darr)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	while (p[i])
-	{
-		j = 0;
-		while (p[i][j])
-		{
-			free(p[i][j]);
-			j++;
-		}
-		free(p[i]);
-		i++;
-	}
-	free(p);
+	while (darr[i])
+		free_str_arr(darr[i++]);
+	free(darr);
 }
 
 size_t	ft_strcnt(const char *s, int c)

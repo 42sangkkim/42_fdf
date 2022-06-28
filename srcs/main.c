@@ -6,23 +6,29 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:55:08 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/26 21:52:12 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/28 16:49:39 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <unistd.h>
 
-char	***get_file_data(int argc, char **argv);
+#include <mlx.h>
+#include <fdf.h>
+
+void	init(t_mlx *mlx, t_fdf *fdf, char *file_name);
+
 void	print_filedata(char ***file_data);
 
 int	main(int argc, char **argv)
 {
-	char	***file_data;
+	t_mlx	mlx;
+	t_fdf	fdf;
 
-	file_data = get_file_data(argc, argv);
-	if (!file_data)
-		return (-1);
-	print_filedata(file_data);
+	if (argc != 2)
+		exit_msg("fdf accept just one parameter");
+	init(&mlx, &fdf, argv[1]);
+	//print_filedata(file_data);
 	return (0);
 }
 

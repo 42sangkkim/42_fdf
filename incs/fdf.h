@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:54:05 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/26 17:34:29 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:54:17 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ typedef struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	int		screen_width;
-	int		screen_height;
 }	t_mlx;
 
 typedef struct s_point
@@ -32,21 +30,24 @@ typedef struct s_point
 	double	x;
 	double	y;
 	double	z;
+	int		color;
 }	t_point;
-
-typedef struct s_map
-{
-	size_t	width;
-	size_t	height;
-	t_point	**data;
-}	t_map;
 
 typedef	struct s_transform
 {
 	double	rotate;
-	double	x_offset;
-	double	y_offset;
-	double	z_offset;
+	t_point	translate;
+	double	zoom;
+	double	altitude;	
 }	t_transform;
+
+typedef struct s_fdf
+{
+	size_t		width;
+	size_t		height;
+	t_point		**volume;
+	t_point		**screen;
+	t_transform	tr;
+}	t_fdf;
 
 #endif
