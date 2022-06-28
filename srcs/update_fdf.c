@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:04:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 02:08:47 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 02:33:06 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,12 @@ t_point	transform(t_point from, t_transform tr,
 {
 	t_point	to;
 
-	// to.x = tr.cos * from.x - tr.sin * from.y;
-	// to.y = tr.sin * from.x + tr.cos * from.y;
-	// to.z = tr.altitude * from.z;
-	// to = projection(to);
-	// to.x = (to.x * tr.zoom) + tr.translate.x + (SCREEN_WIDTH / 2);
-	// to.y = (to.x * tr.zoom) + tr.translate.y + (SCREEN_HEIGHT / 2);
-	// to.color = from.color;
-	to = projection(from);
-	to.x *= tr.zoom;
-	to.y *= tr.zoom;
-	to.x += SCREEN_WIDTH / 2;
-	to.y += SCREEN_HEIGHT / 2;
+	to.x = tr.cos * from.x - tr.sin * from.y;
+	to.y = tr.sin * from.x + tr.cos * from.y;
+	to.z = tr.altitude * from.z;
+	to = projection(to);
+	to.x = (to.x * tr.zoom) + tr.translate.x + (SCREEN_WIDTH / 2);
+	to.y = (to.y * tr.zoom) + tr.translate.y + (SCREEN_HEIGHT / 2);
 	to.color = from.color;
 	return (to);
 }
