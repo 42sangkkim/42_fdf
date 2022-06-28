@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:20:49 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 02:09:17 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 02:59:18 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@
 // UPDATE
 
 # define ROTATE_RESOLUTION 60.
-# define ROTARE_DTheta (PI / 3)
-# define TRANSLATE_DX 10.
-# define TRANSLATE_DY 10.
-# define ZOOM 0.1
+# define D_ROTARE (PI / 3)
+# define D_TRANSLATE 10.
+# define D_ZOOM 0.1
 
 #endif

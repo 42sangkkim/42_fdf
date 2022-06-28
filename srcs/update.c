@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 01:12:11 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 02:31:56 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 03:11:50 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,61 @@
 
 #include <fdf.h>
 #include <utils.h>
+#include <config.h>
 
 void	update_fdf(t_fdf *fdf);
+void	draw(t_mlx *mlx, t_fdf *fdf);
 
-void	update(t_fdf *fdf)
+int	update(void *param)
 {
 	static t_transform	tr;
+	t_mlx				*mlx;
+	t_fdf				*fdf;
 
+	mlx = (t_mlx *)((void **)param)[0];
+	fdf = (t_fdf *)((void **)param)[1];
 	if (ft_memcmp(&tr, &(fdf -> tr), sizeof(t_transform)))
 	{
 		tr = fdf -> tr;
 		update_fdf(fdf);
+		draw(mlx, fdf);
 	}
+	return (0);
 }
 
 #include <stdio.h>
-int	key_hook(int keycode, void *params)
+int	key_hook(int keycode, void *param)
 {
-	void	**parameters;
 	t_mlx	*mlx;
+	t_fdf	*fdf;
 
 	printf("key : %d\n", keycode);
+	mlx = (t_mlx *)((void **)param)[0];
+	fdf = (t_fdf *)((void **)param)[1];
 	if (keycode == 53)
 	{
-		parameters = params;
-		mlx = (t_mlx *)parameters[0];
 		mlx_destroy_window(mlx -> mlx_ptr, mlx -> win_ptr);
 		exit_msg(0, "exit!");
 	}
-	return (1);
+	else if (keycode == 13) // w
+		fdf -> tr.translate.y -= D_TRANSLATE;
+	else if (keycode == 1) // s
+		fdf -> tr.translate.y += D_TRANSLATE;
+	else if (keycode == 0) // a
+		fdf -> tr.translate.x -= D_TRANSLATE;
+	else if (keycode == 2) // d
+		fdf -> tr.translate.x += D_TRANSLATE;
+	else if (keycode ==126) // up
+		fdf -> tr.altitude += 0.1;
+	else if (keycode ==125) // dowm
+		fdf -> tr.altitude -= 0.1;
+	else if (keycode ==123) // <-
+		fdf -> tr.rotate += 2.;
+	else if (keycode == 124) // ->
+		fdf -> tr.rotate -= 2.;
+	else if (keycode == 24) // -
+		fdf -> tr.zoom *= 1.2;
+	else if (keycode == 27) // +
+		fdf -> tr.zoom *= 1. / 1.2;
+	return (keycode);
 }
