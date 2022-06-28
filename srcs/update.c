@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 01:12:11 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 03:36:18 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 03:41:32 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	key_hook(int keycode, void *param)
 	else if (keycode ==125) // dowm
 		fdf -> tr.altitude -= 0.1;
 	else if (keycode ==123) // <-
-		fdf -> tr.rotate += 2.;
+		fdf -> tr.rotate += D_ROTATE;
 	else if (keycode == 124) // ->
-		fdf -> tr.rotate -= 2.;
+		fdf -> tr.rotate -= D_ROTATE;
 	else if (keycode == 24) // -
 		fdf -> tr.zoom *= 1.2;
 	else if (keycode == 27) // +
