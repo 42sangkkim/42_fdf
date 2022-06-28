@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:47:35 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/28 23:27:02 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 02:10:06 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ void	init(t_mlx *mlx, t_fdf *fdf, char *file_name)
 	char	***file_data;
 
 	file_data = get_file_data(file_name);
+	write(1, "[success] read file\n", 20);
 	init_fdf(fdf, file_data);
+	write(1, "[success] init fdf\n", 19);
 	free_darr(file_data);
 	init_mlx(mlx);
+	write(1, "[success] init mlx\n", 19);
 }
 
 char	***get_file_data(char *file_name)
@@ -61,6 +64,8 @@ void	init_fdf(t_fdf *fdf, char ***file_data)
 	ft_bzero(fdf, sizeof(t_fdf));
 	fdf -> height = ft_arrlen(file_data);
 	fdf -> width = ft_arrlen(file_data[0]);
+	fdf -> tr.altitude = 1;
+	fdf -> tr.zoom = 20;
 	fdf -> volume = (t_point **)malloc_array(
 			fdf -> height, fdf -> width, sizeof(t_point));
 	if (!(fdf -> volume))
@@ -70,13 +75,12 @@ void	init_fdf(t_fdf *fdf, char ***file_data)
 	if (!(fdf -> volume))
 		exit_msg(-1, "malloc error\n");
 	parse_coordinate(fdf, file_data);
-	free_darr(file_data);
 	init_colors(fdf -> volume, fdf -> height, fdf -> width);
 }
 
 void	init_mlx(t_mlx *mlx)
 {
-	ft_bzero(&mlx, sizeof(t_mlx));
+	ft_bzero(mlx, sizeof(t_mlx));
 	mlx -> mlx_ptr = mlx_init();
 	if (!(mlx -> mlx_ptr))
 		exit_msg(-1, "mlx didn't generated\n");

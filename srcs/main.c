@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:55:08 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/28 23:10:48 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 02:01:32 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 #include <utils.h>
 
 void	init(t_mlx *mlx, t_fdf *fdf, char *file_name);
+void	update(t_fdf *fdf);
+void	draw(t_mlx *mlx, t_fdf *fdf);
 
-void	print_filedata(char ***file_data);
+void	head1_fdf(t_fdf *fdf);
 
 int	main(int argc, char **argv)
 {
@@ -30,27 +32,27 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		exit_msg(-1, "fdf accept just one parameter");
 	init(&mlx, &fdf, argv[1]);
-	//print_filedata(file_data);
+	update(&fdf);
+	draw(&mlx, &fdf);
+	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }
 
 #include <stdio.h>
-void	print_filedata(char ***file_data)
+#include <config.h>
+void	head1_fdf(t_fdf *fdf)
 {
 	size_t	i;
-	size_t	j;
 
+	printf("height : %lu, width : %lu\n", fdf -> height, fdf -> width);
 	i = 0;
-	while (file_data[i])
+	while (fdf -> volume[i])
 	{
-		printf("%2d [%p]: ", (int)i, file_data[i]);
-		j = 0;
-		while (file_data[i][j])
-		{
-			printf("%s ", file_data[i][j]);
-			j++;
-		}
-		printf("\n");
+		printf("x : %2.2f, y : %2.2f, z : %2.2f, color : %X\n",
+			fdf -> volume[i][0].x,
+			fdf -> volume[i][0].y,
+			fdf -> volume[i][0].z,
+			fdf -> volume[i][0].color);
 		i++;
 	}
 }

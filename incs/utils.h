@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 14:01:10 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/28 23:18:31 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 00:06:29 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	exit_msg(int code, char *msg);
 
 // srcs/util2.c
 void	**malloc_array(size_t height, size_t width, size_t size);
+int		color_picker(int c1, int c2, double ratio);
 
 #endif

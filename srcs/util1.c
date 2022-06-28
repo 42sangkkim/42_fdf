@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 17:16:54 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/28 23:27:20 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 00:35:13 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	free_arr(char **arr)
 void	free_darr(char ***darr)
 {
 	size_t	i;
-	size_t	j;
 
 	i = 0;
 	while (darr[i])

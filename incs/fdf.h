@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:54:05 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/28 23:25:34 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 01:51:05 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
+# include <stdlib.h>
+
 # define COS30 0.86602540
 # define SIN30 0.5
+# define PI 3.141592
 
 typedef struct s_mlx
 {
@@ -35,7 +38,9 @@ typedef	struct s_transform
 	double	rotate;
 	t_point	translate;
 	double	zoom;
-	double	altitude;	
+	double	altitude;
+	double	sin;
+	double	cos;
 }	t_transform;
 
 typedef struct s_fdf

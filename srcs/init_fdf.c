@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_fdf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangkkim <sangkkim@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:19:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/28 23:29:29 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 01:02:11 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,51 @@
 #include <fdf.h>
 #include <utils.h>
 #include <config.h>
-
-// draw_fdf.c
-int		get_gradation(int c1, int c2, double ratio);
-
 void	parse_coordinate(t_fdf *fdf, char ***file_data)
 {
 	size_t	i;
 	size_t	j;
+	int		ox;
+	int		oy;
 	t_point	point;
 
+	ox = fdf -> height / 2;
+	oy = fdf -> width / 2;
 	i = 0;
 	while (i < fdf -> height)
 	{
 		j = 0;
 		while (j < fdf -> width)
 		{
-			point.x = (double)(i - fdf -> height / 2);
-			point.y = (double)(j - fdf -> width / 2);
+			point.x = (double)((int)i - ox);
+			point.y = (double)((int)j - oy);
 			point.z = (double)ft_atoi(file_data[i][j]);
 			point.color = MIN_COLOR;
 			fdf -> volume[i][j] = point;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	get_z_range(double *range, t_point **volume,
+		size_t height, size_t width)
+{
+	size_t	i;
+	size_t	j;
+
+	range[0] = volume[0][0].z;
+	range[1] = volume[0][0].z;
+	i = 0;
+	while (i < height)
+	{
+		j = 0;
+		while (j < width)
+		{
+			if (range[0] > volume[i][j].z)
+				range[0] = volume[i][j].z;
+			if (range[1] < volume[i][j].z)
+				range[1] = volume[i][j].z;
 			j++;
 		}
 		i++;
@@ -49,35 +73,19 @@ void	init_colors(t_point **volume, size_t height, size_t width)
 {
 	size_t	i;
 	size_t	j;
-	double	z_max;
-	double	z_min;
-	double	range;
+	double	z_range[2];
+	double	diff_z;
 
-	z_max = volume[0][0].z;
-	z_min = z_max;
+	get_z_range((double *)z_range, volume, height, width);
+	diff_z = z_range[1] - z_range[0];
 	i = 0;
 	while (i < height)
 	{
 		j = 0;
 		while (j < width)
 		{
-			if (z_max < volume[i][j].z)
-				z_max = volume[i][j].z;
-			if (z_min > volume[i][j].z)
-				z_min = volume[i][j].z;
-			j++;
-		}
-		i++;
-	}
-	range = z_max - z_min;
-	i = 0;
-	while (i < height)
-	{
-		j = 0;
-		while (j < width)
-		{
-			volume[i][j].color = get_gradation(
-					MIN_COLOR, MAX_COLOR, range / (volume[i][j].z - z_min));
+			volume[i][j].color = color_picker(MIN_COLOR, MAX_COLOR,
+					(volume[i][j].z - z_range[0] / diff_z));
 			j++;
 		}
 		i++;
@@ -128,8 +136,9 @@ char	***split_to_data(char *content)
 	while (lines[i])
 	{
 		words[i] = ft_split(lines[i], ' ');
-		if (!words[i++])
+		if (!words[i])
 			exit_msg(-1, "malloc error\n");
+		i++;
 	}
 	free_arr(lines);
 	return (words);
