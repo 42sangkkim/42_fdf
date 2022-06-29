@@ -48,7 +48,7 @@ typedef struct s_point
 
 typedef struct s_transform
 {
-	double	rotate;
+	size_t	rotate;
 	t_point	translate;
 	double	zoom;
 	double	altitude;
