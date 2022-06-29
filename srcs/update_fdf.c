@@ -6,18 +6,18 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:04:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 02:33:06 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 19:48:22 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <math.h>
 
-#include <fdf.h>
-#include <config.h>
+#include "fdf.h"
+#include "config.h"
 
 t_point	transform(t_point from, t_transform tr,
-	t_point (*projection)(t_point));
+			t_point (*projection)(t_point));
 t_point	isometric_projection(t_point from);
 
 void	update_fdf(t_fdf *fdf)
@@ -25,8 +25,10 @@ void	update_fdf(t_fdf *fdf)
 	size_t	i;
 	size_t	j;
 
-	fdf -> tr.sin = sin((double)(fdf -> tr.rotate) * 2 * PI / (double)ROTATE_RESOLUTION);
-	fdf -> tr.cos = cos((double)(fdf -> tr.rotate) * 2 * PI / (double)ROTATE_RESOLUTION);
+	fdf -> tr.sin = sin(
+			(double)(fdf -> tr.rotate) * 2 * PI / ROTATE_RESOLUTION);
+	fdf -> tr.cos = cos(
+			(double)(fdf -> tr.rotate) * 2 * PI / ROTATE_RESOLUTION);
 	i = 0;
 	while (i < fdf -> height)
 	{
@@ -51,7 +53,7 @@ t_point	transform(t_point from, t_transform tr,
 	to.z = tr.altitude * from.z;
 	to = projection(to);
 	to.x = (to.x * tr.zoom) + tr.translate.x + (SCREEN_WIDTH / 2);
-	to.y = (to.y * tr.zoom) + tr.translate.y + (SCREEN_HEIGHT / 2);
+	to.y = -(to.y * tr.zoom) + tr.translate.y + (SCREEN_HEIGHT / 2);
 	to.color = from.color;
 	return (to);
 }
@@ -66,7 +68,3 @@ t_point	isometric_projection(t_point from)
 	to.color = from.color;
 	return (to);
 }
-
-t_point	perallel_projection(t_point p_3d);
-
-t_point	iconic_projection(t_point p_3d);

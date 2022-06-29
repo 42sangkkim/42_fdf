@@ -6,25 +6,47 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:19:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 03:29:22 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 20:07:47 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 
-#include <libft.h>
+#include "libft.h"
+#include "fdf.h"
+#include "utils.h"
+#include "config.h"
 
-#include <fdf.h>
-#include <utils.h>
-#include <config.h>
+void	parse_coordinate(t_fdf *fdf, char ***file_data);
+void	get_z_range(double *range, t_point **volume,
+			size_t height, size_t width);
+void	init_colors(t_point **volume, size_t height, size_t width);
+t_color	get_color(const char *s);
+
+void	init_fdf(t_fdf *fdf, char ***data)
+{
+	ft_bzero(fdf, sizeof(t_fdf));
+	fdf -> height = ft_arrlen(data);
+	fdf -> width = ft_arrlen(data[0]);
+	fdf -> tr.altitude = 1.;
+	fdf -> tr.zoom = 1.;
+	fdf -> volume = (t_point **)malloc_array(
+			fdf -> height, fdf -> width, sizeof(t_point));
+	fdf -> screen = (t_point **)malloc_array(
+			fdf -> height, fdf -> width, sizeof(t_point));
+	if (!(fdf -> volume) || !(fdf -> screen))
+		exit_msg(-1, "malloc error\n");
+	parse_coordinate(fdf, data);
+	init_colors(fdf -> volume, fdf -> height, fdf -> width);
+}
+
 void	parse_coordinate(t_fdf *fdf, char ***file_data)
 {
 	size_t	i;
 	size_t	j;
 	int		ox;
 	int		oy;
-	t_point	point;
 
 	ox = fdf -> height / 2;
 	oy = fdf -> width / 2;
@@ -34,11 +56,14 @@ void	parse_coordinate(t_fdf *fdf, char ***file_data)
 		j = 0;
 		while (j < fdf -> width)
 		{
-			point.x = (double)((int)i - ox);
-			point.y = (double)((int)j - oy);
-			point.z = (double)ft_atoi(file_data[i][j]);
-			point.color.value = MIN_COLOR;
-			fdf -> volume[i][j] = point;
+			fdf -> volume[i][j].x = (double)((int)i - ox);
+			fdf -> volume[i][j].y = (double)((int)j - oy);
+			fdf -> volume[i][j].z = (double)ft_atoi(file_data[i][j]);
+			if (ft_strchr(file_data[i][j], 'x'))
+				fdf -> volume[i][j].color
+					= get_color(ft_strchr(file_data[i][j], 'x') + 1);
+			else
+				fdf -> volume[i][j].color.value = 0xFF000000;
 			j++;
 		}
 		i++;
@@ -84,62 +109,33 @@ void	init_colors(t_point **volume, size_t height, size_t width)
 		j = 0;
 		while (j < width)
 		{
-			volume[i][j].color = color_picker((t_color)MIN_COLOR, (t_color)MAX_COLOR,
-					(volume[i][j].z - z_range[0] / diff_z));
+			if (volume[i][j].color.value & 0xFF000000)
+				volume[i][j].color = color_picker(
+						(t_color)MIN_COLOR, (t_color)MAX_COLOR,
+						(volume[i][j].z - z_range[0]) / diff_z);
 			j++;
 		}
 		i++;
 	}
 }
 
-char	*read_file(int fd)
+t_color	get_color(const char *s)
 {
-	char	buffer[BUFFER_SIZE + 1];
-	char	*data;
-	char	*tmp;
-	ssize_t	read_len;
+	t_color	color;
 
-	data = ft_strdup("");
-	while (1)
+	color.value = 0;
+	while (*s)
 	{
-		if (!data)
-			exit_msg(-1, "malloc error\n");
-		read_len = read(fd, buffer, BUFFER_SIZE);
-		if (read_len > 0)
-		{
-			buffer[read_len] = '\0';
-			tmp = ft_strjoin(data, buffer);
-			free(data);
-			data = tmp;
-		}
-		else if (read_len == 0)
-			break ;
+		color.value *= 16;
+		if (ft_isdigit(*s))
+			color.value += *s - '0';
+		else if ('A' <= *s && *s <= 'F')
+			color.value += *s - 'A' + 10;
+		else if ('a' <= *s && *s <= 'f')
+			color.value += *s - 'a' + 10;
 		else
-			exit_msg(-1, "read error\n");
+			break ;
+		s++;
 	}
-	return (data);
-}
-
-char	***split_to_data(char *content)
-{
-	size_t	i;
-	char	**lines;
-	char	***words;
-
-	lines = ft_split(content, '\n');
-	if (!lines)
-		exit_msg(-1, "malloc error\n");
-	words = ft_calloc(ft_arrlen(lines) + 1, sizeof(char **));
-	if (!words)
-		exit_msg(-1, "malloc error\n");
-	i = 0;
-	while (lines[i])
-	{
-		words[i] = ft_split(lines[i], ' ');
-		if (!words[i])
-			exit_msg(-1, "malloc error\n");
-		i++;
-	}
-	free_arr(lines);
-	return (words);
+	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:20:49 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 12:08:32 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:15:46 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define ROTATE_RESOLUTION 360.
 # define D_ROTATE 12.
 # define D_TRANSLATE 10.
-# define D_ZOOM 0.1
+# define D_ZOOM 1.2
+# define D_ALTITUDE 0.2
 
 #endif

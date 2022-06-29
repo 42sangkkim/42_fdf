@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 18:06:33 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 03:28:34 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 19:47:41 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,15 @@ void	draw_line(t_mlx *mlx, t_point p1, t_point p2);
 
 void	draw_fdf(t_mlx *mlx, t_fdf *fdf)
 {
-	int	x;
-	int	y;
+	size_t	x;
+	size_t	y;
 
-	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
 	x = 0;
 	y = 0;
-	while (x < fdf -> width)
+	while (x < fdf -> height)
 	{
 		y = 0;
-		while (y < fdf -> height)
+		while (y < fdf -> width)
 		{
 			if (x)
 				draw_line(mlx, fdf -> screen[x - 1][y], fdf -> screen[x][y]);

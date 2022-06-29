@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:54:05 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 03:32:49 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 19:46:38 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,24 @@
 # define COS30 0.86602540
 # define SIN30 0.5
 # define PI 3.141592
+
+# define KEY_ESC 53
+# define KEY_Q 12
+# define KEY_W 13
+# define KEY_E 14
+# define KEY_R 15
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_F 3
+# define KEY_MINUS 27
+# define KEY_PLUS 24
+
+# define MOUSE_LEFT 1
+# define MOUSE_RIGHT 2
+# define MOUSE_MIDDLE 3
+# define MOUSE_WHEEL_UP 4
+# define MOUSE_WHEEL_DOWN 5
 
 typedef struct s_mlx
 {

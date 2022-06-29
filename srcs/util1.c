@@ -6,14 +6,14 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 17:16:54 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 00:35:13 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:46:10 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <libft.h>
+#include "libft.h"
 
 size_t	ft_arrlen(void **arr)
 {
@@ -69,4 +69,3 @@ void	exit_msg(int code, char *s)
 		write(2, s, ft_strlen(s));
 	exit(code);
 }
-
