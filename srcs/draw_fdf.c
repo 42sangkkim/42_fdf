@@ -44,27 +44,24 @@ void	draw_fdf(t_mlx *mlx, t_fdf *fdf)
 
 void	draw_line(t_mlx *mlx, t_point p1, t_point p2)
 {
-	int		dt;
-	double	pixel[2];
-	double	d_pixel[2];
-	double	ratio;
-	double	d_ratio;
+	size_t	i;
+	size_t	dt;
+	t_point	pixel;
+	t_point	delta;
 
-	pixel[0] = (double)p1.x;
-	pixel[1] = (double)p1.y;
-	ratio = 0;
-	dt = (int)fabs(fmax((double)(p2.x - p1.x), (double)(p2.y - p1.y)));
-	d_pixel[0] = (double)(p2.x - p1.x) / (double)dt;
-	d_pixel[1] = (double)(p2.y - p1.y) / (double)dt;
-	d_ratio = 1 / (double)dt;
-	dt++;
-	while (dt--)
+	pixel.x = p1.x;
+	pixel.y = p1.y;
+	dt = (int)fmax(fabs(p2.x - p1.x), fabs(p2.y - p1.y));
+	delta.x = (p2.x - p1.x) / (double)dt;
+	delta.y = (p2.y - p1.y) / (double)dt;
+	i = 0;
+	while (i <= dt)
 	{
 		mlx_pixel_put(mlx -> mlx_ptr, mlx -> win_ptr,
-			(int)pixel[0], (int)pixel[1],
-			color_picker(p1.color, p2.color, ratio).value);
-		pixel[0] += d_pixel[0];
-		pixel[1] += d_pixel[1];
-		ratio += d_ratio;
+			(int)pixel.x, (int)pixel.y,
+			color_picker(p1.color, p2.color, (double)i / (double)dt).value);
+		pixel.x += delta.x;
+		pixel.y += delta.y;
+		i++;
 	}
 }
