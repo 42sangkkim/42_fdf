@@ -16,7 +16,7 @@ LIBFT_NAME:=ft
 INC_DIR:=incs
 
 SRC_DIR:=srcs
-SRCS:=srcs/main.c srcs/init.c srcs/init_fdf.c srcs/update.c srcs/update_fdf.c srcs/draw.c srcs/draw_fdf.c\
+SRCS:=srcs/main.c srcs/init.c srcs/init_fdf.c srcs/update.c srcs/update_fdf.c srcs/draw_guide.c srcs/draw_fdf.c\
 	  srcs/util1.c srcs/util2.c
 
 $(NAME) : $(SRCS)

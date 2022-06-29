@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 01:12:11 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 03:41:32 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 12:27:36 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 #include <config.h>
 
 void	update_fdf(t_fdf *fdf);
-void	draw(t_mlx *mlx, t_fdf *fdf);
+void	draw_fdf(t_mlx *mlx, t_fdf *fdf);
+void	draw_guide(t_mlx *mlx);
 
 int	update(void *param)
 {
@@ -35,7 +36,9 @@ int	update(void *param)
 	{
 		tr = fdf -> tr;
 		update_fdf(fdf);
-		draw(mlx, fdf);
+		mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
+		draw_fdf(mlx, fdf);
+		draw_guide(mlx);
 	}
 	return (0);
 }
@@ -54,21 +57,21 @@ int	key_hook(int keycode, void *param)
 		mlx_destroy_window(mlx -> mlx_ptr, mlx -> win_ptr);
 		exit_msg(0, "exit!");
 	}
-	else if (keycode == 13) // w
+	else if (keycode == 13) // W
 		fdf -> tr.translate.y -= D_TRANSLATE;
-	else if (keycode == 1) // s
+	else if (keycode == 1) // S
 		fdf -> tr.translate.y += D_TRANSLATE;
-	else if (keycode == 0) // a
+	else if (keycode == 0) // A
 		fdf -> tr.translate.x -= D_TRANSLATE;
-	else if (keycode == 2) // d
+	else if (keycode == 2) // D
 		fdf -> tr.translate.x += D_TRANSLATE;
-	else if (keycode ==126) // up
+	else if (keycode == 30) // ]
 		fdf -> tr.altitude += 0.1;
-	else if (keycode ==125) // dowm
+	else if (keycode == 33) // [
 		fdf -> tr.altitude -= 0.1;
-	else if (keycode ==123) // <-
+	else if (keycode ==12) // Q
 		fdf -> tr.rotate += D_ROTATE;
-	else if (keycode == 124) // ->
+	else if (keycode == 14) // E
 		fdf -> tr.rotate -= D_ROTATE;
 	else if (keycode == 24) // -
 		fdf -> tr.zoom *= 1.2;

@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:20:49 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 03:41:14 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 12:08:32 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 # define TITLE "sangkkim FdF"
-# define MIN_COLOR 0x0000FF
-# define MAX_COLOR 0xFFFF00
+# define MIN_COLOR 0xFFFFFF
+# define MAX_COLOR 0xFF0000
 
 // UPDATE
 
