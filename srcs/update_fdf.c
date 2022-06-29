@@ -25,8 +25,8 @@ void	update_fdf(t_fdf *fdf)
 	size_t	i;
 	size_t	j;
 
-	fdf -> tr.sin = sin((fdf -> tr.rotate) * 2 * PI / ROTATE_RESOLUTION);
-	fdf -> tr.cos = cos((fdf -> tr.rotate) * 2 * PI / ROTATE_RESOLUTION);
+	fdf -> tr.sin = sin((double)(fdf -> tr.rotate) * 2 * PI / (double)ROTATE_RESOLUTION);
+	fdf -> tr.cos = cos((double)(fdf -> tr.rotate) * 2 * PI / (double)ROTATE_RESOLUTION);
 	i = 0;
 	while (i < fdf -> height)
 	{
