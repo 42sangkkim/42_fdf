@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:20:49 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 16:15:46 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 20:39:24 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CONFIG_H
 
 // FILE READ
-# define BUFFER_SIZE 100
+# define BUFFER_SIZE 1000000
 
 // SCREEN
 

@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:19:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 20:07:47 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 20:43:36 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	parse_coordinate(t_fdf *fdf, char ***file_data)
 				fdf -> volume[i][j].color
 					= get_color(ft_strchr(file_data[i][j], 'x') + 1);
 			else
-				fdf -> volume[i][j].color.value = 0xFF000000;
+				fdf -> volume[i][j].color.value = MIN_COLOR;
 			j++;
 		}
 		i++;
@@ -103,6 +103,8 @@ void	init_colors(t_point **volume, size_t height, size_t width)
 
 	get_z_range((double *)z_range, volume, height, width);
 	diff_z = z_range[1] - z_range[0];
+	if (diff_z < 1)
+		return ;
 	i = 0;
 	while (i < height)
 	{
