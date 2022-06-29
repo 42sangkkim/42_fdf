@@ -31,7 +31,7 @@ int	update(void *param)
 	fdf = (t_fdf *)((void **)param)[1];
 	if (fdf -> rotating)
 		fdf -> tr.rotate ++;
-	fdf -> tr.rotate = (double)((int)(fdf -> tr.rotate) % (int)ROTATE_RESOLUTION);
+	fdf -> tr.rotate %= ROTATE_RESOLUTION;
 	if (ft_memcmp(&tr, &(fdf -> tr), sizeof(t_transform)))
 	{
 		tr = fdf -> tr;
