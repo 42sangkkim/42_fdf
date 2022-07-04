@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:42:58 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 21:52:00 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/05 00:09:23 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,15 @@
 # define FDF_H
 
 # include <stdlib.h>
+# include <pixel.h>
 
 // CONFIG
 
-# define MIN_COLOR 0x000000
+# define MIN_COLOR 0xFFFFFF
 # define MAX_COLOR 0xFF005F
 # define ZOOM 20
 
-// UNION and STRUCT
-
-typedef union u_color
-{
-	int	value;
-	struct s_rgb
-	{
-		unsigned char	b;
-		unsigned char	g;
-		unsigned char	r;
-	}	rgb;
-}	t_color;
-
-typedef struct s_pixel
-{
-	double	x;
-	double	y;
-	double	z;
-	t_color	color;
-}	t_pixel;
+// STRUCT
 
 typedef struct s_mlx
 {

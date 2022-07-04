@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 17:43:11 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 21:46:44 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/04 23:24:53 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,11 @@ void	parse_color(t_fdf *fdf, char ***words);
 
 void	parse_map(t_fdf *fdf, char ***words)
 {
-	write(1, "\n\tinit ...\t", 11);
 	fdf->height = ft_arrlen((void **)words);
 	fdf->width = ft_arrlen((void **)words[0]);
 	init_map(fdf);
-	write(1, "OK\n", 3);
-	write(1, "\taltitude ...\t", 14);
 	parse_altitude(fdf, words);
-	write(1, "OK\n", 3);
-	write(1, "\tcolor ...\t", 11);
 	parse_color(fdf, words);
-	write(1, "OK\n", 3);
 }
 
 void	init_map(t_fdf *fdf)
@@ -47,8 +41,8 @@ void	init_map(t_fdf *fdf)
 			fdf->height, fdf->width, sizeof(t_pixel));
 	if (!fdf->volume || !fdf->plane)
 		exit_msg("malloc error\n");
-	fdf->max_edge.x = (double)fdf->height / 2;
-	fdf->max_edge.y = (double)fdf->width / 2;
+	fdf->max_edge.x = (double)(fdf->height - 1) / 2;
+	fdf->max_edge.y = (double)(fdf->width - 1) / 2;
 	fdf->min_edge.x = -(fdf->max_edge.x);
 	fdf->min_edge.y = -(fdf->max_edge.y);
 	i = 0;
@@ -57,7 +51,6 @@ void	init_map(t_fdf *fdf)
 		j = 0;
 		while (j < fdf->width)
 		{
-			write(1, "?", 1);
 			fdf->volume[i][j].x = (double)i - fdf->max_edge.x;
 			fdf->volume[i][j].y = (double)j - fdf->max_edge.y;
 			j++;
@@ -94,11 +87,11 @@ void	parse_color(t_fdf *fdf, char ***words)
 {
 	size_t	i;
 	size_t	j;
-	double	min_z;
 	double	z_range;
 
-	min_z = fdf->min_edge.z;
 	z_range = fdf->max_edge.z - fdf->min_edge.z;
+	if (z_range == 0)
+		z_range = 1;
 	i = 0;
 	while (i < fdf->height)
 	{
@@ -111,7 +104,7 @@ void	parse_color(t_fdf *fdf, char ***words)
 			else
 				fdf->volume[i][j].color = mix_color(
 						(t_color)MIN_COLOR, (t_color)MAX_COLOR,
-						(fdf->volume[i][j].z - min_z) / z_range);
+						(fdf->volume[i][j].z - fdf->min_edge.z) / z_range);
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:36:13 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 21:53:20 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/04 23:11:15 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	draw_line(t_mlx mlx, t_pixel p1, t_pixel p2)
 	t_pixel	delta;
 
 	pixel.x = p1.x;
-	pixel.y = p2.y;
+	pixel.y = p1.y;
 	dt = (size_t)fmax(fabs(p2.x - p1.x), fabs(p2.y - p1.y));
 	delta.x = (p2.x - p1.x) / (double)dt;
 	delta.y = (p2.y - p1.y) / (double)dt;
@@ -84,8 +84,8 @@ void	draw_line(t_mlx mlx, t_pixel p1, t_pixel p2)
 		mlx_pixel_put(mlx.mlx_ptr, mlx.win_ptr,
 			(int)pixel.x, (int)pixel.y,
 			mix_color(p1.color, p2.color, (double)i / (double)dt).value);
-		pixel.x = delta.x;
-		pixel.y = delta.y;
+		pixel.x += delta.x;
+		pixel.y += delta.y;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:53:28 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 21:49:40 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/04 23:49:02 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ void	*ft_realloc(void *src, size_t src_size, size_t dst_size)
 		return (NULL);
 	}
 	ft_memcpy(dst, src, src_size);
+	free(src);
 	return (dst);
 }

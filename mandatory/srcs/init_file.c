@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 23:00:41 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 22:09:05 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/04 23:49:40 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,64 +16,49 @@
 #include "libft.h"
 #include "utils.h"
 
-int		get_next_line(int fd, char **line_ptr);
+char	*get_next_line(int fd);
 
-int		parse_next_line(char ****words_ptr, int fd);
+void	parse_next_line(char ****words_ptr, char *line, size_t line_cnt);
 int		is_valid_format(char *word);
 
-#include <stdio.h>
 char	***read_file(char *filename)
 {
 	int		fd;
-	int		eol_flag;
+	size_t	line_cnt;
+	char	*line;
 	char	***words;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		exit_msg("file open error\n");
-	eol_flag = 0;
-	words = (char ***)ft_calloc(1, sizeof(char **));
+	line_cnt = 0;
+	words = ft_calloc(1, sizeof(char **));
 	if (!words)
 		exit_msg("malloc error\n");
-	while (!eol_flag)
+	line = get_next_line(fd);
+	while (line)
 	{
-		eol_flag = parse_next_line(&words, fd);
-		printf("line %lu read\n", ft_arrlen((void **)words));
-		if (eol_flag == 0)
-			break ;
+		parse_next_line(&words, line, line_cnt++);
+		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (words);
 }
 
-int	parse_next_line(char ****words_ptr, int fd)
+void	parse_next_line(char ****words_ptr, char *line, size_t line_cnt)
 {
-	char	*line;
-	size_t	line_cnt;
-	int		gnl_status;
-
-	gnl_status = get_next_line(fd, &line);
-	if (gnl_status == -1)
-		exit_msg("malloc error\n");
-	else if (gnl_status == -2)
-		exit_msg("file read error\n");
-	if (ft_strchr(line, '\n'))
-		*ft_strchr(line, '\n') = '\0';
-	line_cnt = ft_arrlen((void **)*words_ptr);
 	*words_ptr = (char ***)ft_realloc(*words_ptr,
 			(line_cnt + 1) * sizeof(char **),
 			(line_cnt + 2) * sizeof(char **));
 	if (!*words_ptr)
 		exit_msg("malloc error\n");
+	if (ft_strchr(line, '\n'))
+		*(ft_strchr(line, '\n')) = '\0';
 	(*words_ptr)[line_cnt] = ft_split(line, ' ');
-	free(line);
-	if (!*words_ptr[line_cnt])
+	if (!(*words_ptr)[line_cnt])
 		exit_msg("malloc error\n");
 	(*words_ptr)[line_cnt + 1] = NULL;
-	if (gnl_status == 0)
-		return (1);
-	else
-		return (0);
 }
 
 int	is_valid(char ***words)

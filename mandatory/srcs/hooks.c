@@ -6,11 +6,12 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:22:42 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 20:22:35 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/04 23:44:00 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "mlx.h"
 #include "fdf.h"
