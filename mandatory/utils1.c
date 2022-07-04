@@ -1,20 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util2.c                                            :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/28 22:04:46 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 16:46:01 by sangkkim         ###   ########.fr       */
+/*   Created: 2022/07/04 18:53:28 by sangkkim          #+#    #+#             */
+/*   Updated: 2022/07/04 21:49:40 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
 
 #include "libft.h"
-#include "utils.h"
-#include "fdf.h"
+
+size_t	ft_arrlen(void **arr)
+{
+	size_t	len;
+
+	len = 0;
+	while (*arr++)
+		len++;
+	return (len);
+}
+
+void	free_array(void	**arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
+void	free_double_array(void ***darr)
+{
+	size_t	i;
+
+	i = 0;
+	while (darr[i])
+		free_array(darr[i++]);
+	free(darr);
+}
 
 void	**malloc_array(size_t height, size_t width, size_t size)
 {
@@ -30,9 +60,7 @@ void	**malloc_array(size_t height, size_t width, size_t size)
 		arr[i] = malloc(width * size);
 		if (!arr[i])
 		{
-			while (i--)
-				free(arr[i]);
-			free(arr);
+			free_array(arr);
 			return (NULL);
 		}
 		i++;
@@ -41,14 +69,16 @@ void	**malloc_array(size_t height, size_t width, size_t size)
 	return (arr);
 }
 
-t_color	color_picker(t_color c1, t_color c2, double ratio)
+void	*ft_realloc(void *src, size_t src_size, size_t dst_size)
 {
-	t_color	color;
-	double	r_ratio;
+	void	*dst;
 
-	r_ratio = 1 - ratio;
-	color.rgb.r = (double)c1.rgb.r * r_ratio + (double)(c2.rgb.r * ratio);
-	color.rgb.g = (double)c1.rgb.g * r_ratio + (double)(c2.rgb.g * ratio);
-	color.rgb.b = (double)c1.rgb.b * r_ratio + (double)(c2.rgb.b * ratio);
-	return (color);
+	dst = malloc(dst_size);
+	if (!dst)
+	{
+		free(src);
+		return (NULL);
+	}
+	ft_memcpy(dst, src, src_size);
+	return (dst);
 }

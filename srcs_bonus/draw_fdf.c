@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 18:06:33 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 19:47:41 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/01 20:49:43 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,27 @@ void	draw_fdf(t_mlx *mlx, t_fdf *fdf)
 
 	x = 0;
 	y = 0;
-	while (x < fdf -> height)
+	while (x < fdf->mlx.screen_height)
 	{
 		y = 0;
-		while (y < fdf -> width)
+		while (y < fdf->mlx.width)
 		{
 			if (x)
-				draw_line(mlx, fdf -> screen[x - 1][y], fdf -> screen[x][y]);
+				draw_line(mlx, fdf->map_2d.data[x - 1][y], fdf->map_2d.data[x][y]);
 			if (y)
-				draw_line(mlx, fdf -> screen[x][y - 1], fdf -> screen[x][y]);
+				draw_line(mlx, fdf->map_2d.data[x][y - 1], fdf->map_2d.data[x][y]);
 			y++;
 		}
 		x++;
 	}
 }
 
-void	draw_line(t_mlx *mlx, t_point p1, t_point p2)
+void	draw_line(t_mlx *mlx, t_pixel p1, t_pixel p2)
 {
 	size_t	i;
 	size_t	dt;
-	t_point	pixel;
-	t_point	delta;
+	t_pixel	pixel;
+	t_pixel	delta;
 
 	pixel.x = p1.x;
 	pixel.y = p1.y;

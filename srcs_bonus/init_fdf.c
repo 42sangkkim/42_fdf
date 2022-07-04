@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:19:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/06/29 20:43:36 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/06/30 14:01:57 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ void	init_colors(t_point **volume, size_t height, size_t width)
 	double	diff_z;
 
 	get_z_range((double *)z_range, volume, height, width);
-	diff_z = z_range[1] - z_range[0];
-	if (diff_z < 1)
+	if (z_range[0] == z_range[1])
 		return ;
+	diff_z = z_range[1] - z_range[0];
 	i = 0;
 	while (i < height)
 	{
