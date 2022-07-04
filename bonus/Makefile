@@ -5,50 +5,42 @@
 #                                                     +:+ +:+         +:+      #
 #    By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/07/05 00:12:03 by sangkkim          #+#    #+#              #
-#    Updated: 2022/07/05 00:23:13 by sangkkim         ###   ########.fr        #
+#    Created: 2022/07/04 20:07:42 by sangkkim          #+#    #+#              #
+#    Updated: 2022/07/05 00:08:26 by sangkkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=fdf
+NAME := fdf
 
-MANDATORY_DIR=mandatory
+SRCS := srcs/main.c srcs/init_file.c srcs/init_fdf.c srcs/hooks.c srcs/transform.c srcs/draw_fdf.c \
+		srcs/get_next_line.c srcs/utils1.c srcs/utils2.c
 
-BONUS_DIR=bonus
+INC_DIR := incs
 
-MLX_DIR=minilibx
+CC := cc
+CFLAGS :=# -Wall -Wextra -Werror
 
-LIBFT_DIR=libft
+RM := rm
+RMFLAGS := -f
 
-ifdef TARGET_DIR
-else
-TARGET_DIR=$(MANDATORY_DIR)
-endif
+LIBFT_DIR := ../libft
+LIBFT := ft
 
-RM=rm
-RMFLAGS=-f
+MLX_DIR := ../minilibx
+MLX := mlx
 
 $(NAME) : $(SRCS)
-	@make -C $(MLX_DIR)
-	@make -C $(LIBFT_DIR)
-	make -C $(TARGET_DIR)
-	cp $(TARGET_DIR)/$(NAME) ./
+	$(CC) $(CFLAGS) -o $@ $^ -I $(INC_DIR) \
+	-I $(LIBFT_DIR) -L $(LIBFT_DIR) -l $(LIBFT) \
+	-I $(MLX_DIR) -L $(MLX_DIR) -l $(MLX) -framework OpenGL -framework AppKit
 
-.PHONY : all clean fclean re bonus
+.PHONY : all clean fclean re
 
 all : $(NAME)
 
 clean :
-	make -C $(MLX_DIR) clean
-	make -C $(LIBFT_DIR) clean
-	make -C $(MANDATORY_DIR) clean
-	make -C $(MANDATORY_DIR) clean
-
-fclean : clean
-	make -C $(LIBFT_DIR) fclean
 	$(RM) $(RMFLAGS) $(NAME)
 
-re : fclean all
+fclean : clean
 
-bonus :
-	@make TARGET_DIR:=$(BONUS_DIR) all
+re : fclean all
