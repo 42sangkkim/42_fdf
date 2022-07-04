@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:25:11 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 23:17:40 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/05 00:44:17 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	transform(t_fdf *fdf)
 {
 	size_t	i;
 	size_t	j;
+	t_point	tmp;
 
 	i = 0;
 	while (i < fdf->height)
@@ -28,19 +29,38 @@ void	transform(t_fdf *fdf)
 		j = 0;
 		while (j < fdf->width)
 		{
-			isometric_projection(&(fdf->plane[i][j]), fdf->volume[i][j]);
+			tmp = rotate(fdf->volume[i][j], fdf->transform.rotate);
+			tmp = plaperallel_projection(tmp);
+			fdf->plane[i][j] = translate(tmp, fdf->transform.translate);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	isometric_projection(t_pixel *to, t_pixel from)
+t_pixel	rotate(t_pixel from, t_quaternion quaternion)
 {
-	const double	cos30 = cos(M_PI / 6);
-	const double	sin30 = sin(M_PI / 6);
+	t_pixel	to;
 
-	to->x = from.x * -cos30 + from.y * cos30;
-	to->y = from.x * -sin30 + from.y * -sin30 + from.z;
-	to->color = from.color;
+	return (to);
+}
+
+t_pixel	perallel_projection(t_pixel from)
+{
+	t_pixel	to;
+
+	to.x = from.y;
+	to.y = from.z;
+	to.z = 0.;
+	to.color = from.color;
+}
+
+t_pixel	translate(t_pixel from, t_pixel translate)
+{
+	t_pixel	to;
+
+	to.x = from.x + translate.x;
+	to.y = from.y + translate.y;
+	to.color = from.color;
+	return (to);
 }
