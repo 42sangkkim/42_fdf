@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 23:00:41 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 23:49:40 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:20:45 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 
 #include "libft.h"
-#include "utils.h"
+#include "utils_bonus.h"
 
 char	*get_next_line(int fd);
 

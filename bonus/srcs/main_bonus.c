@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:48:09 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/05 00:36:24 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/05 19:36:33 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@
 #include "fdf_bonus.h"
 #include "utils_bonus.h"
 
+// hooks_bonus.c
 int		key_hook(int keycode, void *param);
+int		mouse_hook(int button, int x, int y, void *param);
 int		loop_hook(void *param);
+int		close_hook(void *param);
+
 char	***read_file(char *filename);
 int		is_valid(char ***words);
-void	parse_map(t_fdf *fdf, char ***words);
+void	parse_map(t_map *map, char ***words);
 
 int		init_fdf(t_fdf *fdf, char *filename);
 void	init_mlx(t_fdf *fdf, char *filename);
@@ -48,18 +52,15 @@ int	init_fdf(t_fdf *fdf, char *filename)
 {
 	char	***words;
 
-	write(1, "reading file... \t", 17);
 	words = read_file(filename);
-	write(1, "OK\n", 3);
-	write(1, "checking file...\t", 18);
 	if (!is_valid(words))
 		return (-1);
-	write(1, "OK\n", 3);
 	ft_bzero(fdf, sizeof(t_fdf));
-	write(1, "parsing file... \t", 17);
-	parse_map(fdf, words);
-	write(1, "OK\n", 3);
+	parse_map(&(fdf->map), words);
 	free_double_array((void ***)words);
+	fdf->transform.zoom = 15.0;
+	fdf->transform.z_gain = 1.0;
+	fdf->transform.fov = 100.;
 	return (0);
 }
 
@@ -73,5 +74,7 @@ void	init_mlx(t_fdf *fdf, char *filename)
 	if (!fdf->mlx.win_ptr)
 		exit_msg("mlx window open error\n");
 	mlx_key_hook(fdf->mlx.win_ptr, &key_hook, fdf);
+	mlx_mouse_hook(fdf->mlx.win_ptr, &mouse_hook, fdf);
 	mlx_loop_hook(fdf->mlx.mlx_ptr, &loop_hook, fdf);
+	mlx_hook(fdf->mlx.win_ptr, 17, 0, &close_hook, fdf);
 }

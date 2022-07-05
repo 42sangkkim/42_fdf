@@ -6,15 +6,15 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:05:07 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/05 00:34:28 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/05 18:08:36 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef UTILS_BONUS_H
+# define UTILS_BONUS_H
 
 # include <stdlib.h>
-# include "fdf.h"
+# include "fdf_bonus.h"
 
 // utils1.c
 size_t	ft_arrlen(void **arr);

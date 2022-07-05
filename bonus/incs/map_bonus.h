@@ -1,52 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_bonus.h                                        :+:      :+:    :+:   */
+/*   map_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:42:58 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/05 19:38:20 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:14:11 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_BONUS_H
-# define FDF_BONUS_H
+#ifndef MAP_BONUS_H
+# define MAP_BONUS_H
 
 # include <stdlib.h>
-# include "map_bonus.h"
-# include "transform_bonus.h"
 
-// CONFIG
-
-# define MIN_COLOR		0xFFFFFF
-# define MAX_COLOR		0xFF005F
-# define GUIDE_COLOR	0xFFFFFF
-# define SCREEN_WIDTH	1280
-# define SCREEN_HEIGHT	720
-
-# define D_TRANSLATE	2.0
-# define D_GAIN			1.5
-# define D_ZOOM			1.2
-# define D_ROTATE		1.0
-# define D_FOV			2.5
-
-# define PERALLEL		0
-# define ONE_POINT		1
-
-// STRUC
-
-typedef struct s_mlx
+typedef union u_color
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-}	t_mlx;
+	int	value;
+	struct s_rgb
+	{
+		unsigned char	b;
+		unsigned char	g;
+		unsigned char	r;
+	}	rgb;
+}	t_color;
 
-typedef struct s_fdf
+typedef struct s_point_2d
 {
-	t_mlx		mlx;
-	t_map		map;
-	t_transform	transform;
-}	t_fdf;
+	double	x;
+	double	y;
+}	t_point_2d;
+
+typedef struct s_point_3d
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_point_3d;
+
+typedef struct s_pixel
+{
+	t_point_2d	dim_2;
+	t_point_3d	dim_3;
+	t_color		color;
+	int			drawable;
+}	t_pixel;
+
+
+typedef struct s_map
+{
+	size_t		height;
+	size_t		width;
+	t_pixel		**data;
+	t_point_3d	max_edge;
+	t_point_3d	min_edge;
+}	t_map;
 
 #endif

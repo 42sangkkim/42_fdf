@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   projection_bonus.c                                 :+:      :+:    :+:   */
+/*   transform_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 12:42:56 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/05 12:46:01 by sangkkim         ###   ########.fr       */
+/*   Created: 2022/07/05 13:05:38 by sangkkim          #+#    #+#             */
+/*   Updated: 2022/07/05 18:05:18 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
+#ifndef TRANSFORM_BONUS_H
+# define TRANSFORM_BONUS_H
 
-t_pixel	perallel_projection(t_pixel volume)
+typedef struct s_quaternion
 {
-	t_pixel	plane;
+	double	w;
+	double	x;
+	double	y;
+	double	z;
+}	t_quaternion;
 
-	plane.x = volume.y;
-	plane.y = volume.z;
-	plane.
+typedef struct s_transform
+{
+	double			fov;
+	double			zoom;
+	double			z_gain;
+	t_quaternion	quaternion;
+	double			ox;
+	double			oy;
+	unsigned int	mode;
+}	t_transform;
+
+#endif

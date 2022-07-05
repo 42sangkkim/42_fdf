@@ -6,14 +6,14 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 01:09:55 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 20:39:03 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/05 17:59:57 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
 #include "libft.h"
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 void	exit_msg(char *msg)
 {
