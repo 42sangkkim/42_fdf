@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:21:15 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/06 23:43:27 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/07/07 02:58:18 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "transform_bonus.h"
 
 # define EVENT_CLOSE			17
+# define EVENT_KEY_PRESS		2
 
 # define KEY_ESC				53
 # define KEY_PLUS				24
@@ -35,8 +36,8 @@
 # define KEY_S					1
 # define KEY_D					2
 
-# define BUTTON_SCROLL_UP		4
-# define BUTTON_SCROLL_DOWN		5
+# define BUTTON_SCROLL_UP		5
+# define BUTTON_SCROLL_DOWN		4
 
 # define PERALLEL_PROJECTION	0
 # define ONE_POINT_PROJECTION	1
@@ -45,6 +46,7 @@ typedef struct s_fdf
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	void		*axis_bg;
 	t_map		map;
 	t_transform	transform;
 	int			mode;

@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 17:21:36 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/06 23:53:11 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/07/07 02:51:14 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ void	draw_axis(t_fdf *fdf)
 	t_edge		origin;
 	t_edge		end;
 
-	origin.d2.x = 1230;
-	origin.d2.y = 50;
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr,
+		fdf->axis_bg, 1100, 10);
+	origin.d2.x = 1185;
+	origin.d2.y = 95;
 	end.d2.x = origin.d2.x + fdf->axis[0].y;
 	end.d2.y = origin.d2.y - fdf->axis[0].z;
 	end.color.value = 0xFF0000;

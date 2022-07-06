@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:31:58 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/06 20:53:31 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/07/07 01:46:12 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@
 # define D_ZOOM			1.2
 # define D_TRANSLATE	5.0
 
-# define AXIS_LEN		30.0
+# define AXIS_LEN		50.0
 
 #endif

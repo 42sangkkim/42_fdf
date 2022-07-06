@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:20:28 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/06 23:50:19 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/07/07 03:02:28 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	init_fdf(t_fdf *fdf, char ***file_data)
 
 void	init_mlx(t_fdf *fdf, char *file_name)
 {
+	int	an_sum;
+
 	fdf->mlx_ptr = mlx_init();
 	if (!fdf->mlx_ptr)
 		exit_msg("[ERROR] mlx didn't created\n");
@@ -65,7 +67,11 @@ void	init_mlx(t_fdf *fdf, char *file_name)
 			SCREEN_WIDTH, SCREEN_HEIGHT, file_name);
 	if (!fdf->win_ptr)
 		exit_msg("[ERROR] window didn't created\n");
-	mlx_key_hook(fdf->win_ptr, &key_hook, fdf);
+	fdf->axis_bg = mlx_xpm_file_to_image(fdf->mlx_ptr,
+			"./axis_bg.xpm", &an_sum, &an_sum);
+	if (!fdf->axis_bg)
+		exit_msg("[ERROR] image didn't created\n");
+	mlx_hook(fdf->win_ptr, EVENT_KEY_PRESS, 0, &key_hook, fdf);
 	mlx_mouse_hook(fdf->win_ptr, &mouse_hook, fdf);
 	mlx_loop_hook(fdf->mlx_ptr, &loop_hook, fdf);
 	mlx_hook(fdf->win_ptr, EVENT_CLOSE, 0, &close_hook, fdf);
