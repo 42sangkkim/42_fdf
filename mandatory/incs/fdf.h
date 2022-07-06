@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform_bonus.h                                  :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 17:49:16 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/06 23:26:57 by sangkkim         ###   ########seoul.kr  */
+/*   Created: 2022/07/06 14:21:15 by sangkkim          #+#    #+#             */
+/*   Updated: 2022/07/07 03:26:03 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TRANSFORM_BONUS_H
-# define TRANSFORM_BONUS_H
+#ifndef FDF_H
+# define FDF_H
 
-typedef struct s_quaternion
-{
-	double	w;
-	double	x;
-	double	y;
-	double	z;
-}	t_quaternion;
+# include "config.h"
+# include "map.h"
 
-typedef struct s_transform
+# define EVENT_CLOSE			17
+# define EVENT_KEY_PRESS		2
+
+# define KEY_ESC				53
+# define KEY_SPACE				49
+
+typedef struct s_fdf
 {
-	double			fov;
-	double			zoom;
-	double			dx;
-	double			dy;
-	t_quaternion	quaternion;
-	double			rotation_vector[3][3];
-}	t_transform;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	int			rotation_flag;
+	long		rotation;
+	t_map		map;
+	int			mode;
+	t_point3	axis[3];
+}	t_fdf;
 
 #endif

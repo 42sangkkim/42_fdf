@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_fdf_bonus.c                                   :+:      :+:    :+:   */
+/*   draw_fdf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 17:21:36 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/07 02:51:14 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/07/07 03:51:41 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <mlx.h>
-#include "fdf_bonus.h"
+#include "fdf.h"
 #include "utils.h"
 
-void	draw_axis(t_fdf *fdf);
 void	draw_line(t_fdf *fdf, t_edge edge1, t_edge edge2);
 
 void	draw_fdf(t_fdf *fdf)
@@ -23,6 +22,7 @@ void	draw_fdf(t_fdf *fdf)
 	size_t	i;
 	size_t	j;
 
+	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	i = 0;
 	while (i < fdf->map.height)
 	{
@@ -37,33 +37,6 @@ void	draw_fdf(t_fdf *fdf)
 		}
 		i++;
 	}
-	draw_axis(fdf);
-}
-
-void	draw_axis(t_fdf *fdf)
-{
-	t_edge		origin;
-	t_edge		end;
-
-	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr,
-		fdf->axis_bg, 1100, 10);
-	origin.d2.x = 1185;
-	origin.d2.y = 95;
-	end.d2.x = origin.d2.x + fdf->axis[0].y;
-	end.d2.y = origin.d2.y - fdf->axis[0].z;
-	end.color.value = 0xFF0000;
-	origin.color.value = 0xFF0000;
-	draw_line (fdf, origin, end);
-	end.d2.x = origin.d2.x + fdf->axis[1].y;
-	end.d2.y = origin.d2.y - fdf->axis[1].z;
-	end.color.value = 0x00FF00;
-	origin.color.value = 0x00FF00;
-	draw_line (fdf, origin, end);
-	end.d2.x = origin.d2.x + fdf->axis[2].y;
-	end.d2.y = origin.d2.y - fdf->axis[2].z;
-	end.color.value = 0x0000FF;
-	origin.color.value = 0x0000FF;
-	draw_line (fdf, origin, end);
 }
 
 void	draw_line(t_fdf *fdf, t_edge edge1, t_edge edge2)
@@ -73,8 +46,6 @@ void	draw_line(t_fdf *fdf, t_edge edge1, t_edge edge2)
 	t_point2	point;
 	t_point2	delta;
 
-	if (!edge1.drawable || !edge2.drawable)
-		return ;
 	point.x = edge1.d2.x;
 	point.y = edge1.d2.y;
 	dt = (size_t)fmax(

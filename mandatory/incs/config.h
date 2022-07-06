@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_transform_bonus.c                             :+:      :+:    :+:   */
+/*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 15:11:26 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/07 00:44:36 by sangkkim         ###   ########seoul.kr  */
+/*   Created: 2022/07/06 14:31:58 by sangkkim          #+#    #+#             */
+/*   Updated: 2022/07/07 03:26:42 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf_bonus.h"
+#ifndef CONFIG_H
+# define CONFIG_H
 
-void	init_transform(t_transform *transform, double max_x)
-{
-	transform->fov = max_x * 1.5;
-	transform->zoom = 20.0;
-	transform->dx = 0.0;
-	transform->dy = 0.0;
-	transform->quaternion.w = 1.0;
-	transform->quaternion.x = 0.0;
-	transform->quaternion.y = 0.0;
-	transform->quaternion.z = 0.0;
-}
+# define SCREEN_WIDTH		1280
+# define SCREEN_HEIGHT		720
+
+# define ROTATE_RESOLUTION	360
+
+# define MIN_COLOR			0xFFFFFF
+# define MAX_COLOR			0xFF0000
+
+#endif

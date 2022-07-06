@@ -6,24 +6,20 @@
 #    By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 21:10:08 by sangkkim          #+#    #+#              #
-#    Updated: 2022/07/07 01:24:55 by sangkkim         ###   ########seoul.kr   #
+#    Updated: 2022/07/07 03:40:42 by sangkkim         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 NAME:=fdf
 
 SRC_DIR:=srcs/
-SRCS:=main_bonus.c \
-	draw_fdf_bonus.c \
-	draw_info_bonus.c \
+SRCS:=draw_fdf.c \
 	get_next_line.c \
-	hooks_1_bonus.c \
-	hooks_2_bonus.c \
+	hooks.c \
 	init_file.c \
 	init_map.c \
-	init_transform_bonus.c \
-	projection_bonus.c \
-	update_bonus.c \
+	main.c \
+	update.c \
 	utils1.c \
 	utils2.c
 

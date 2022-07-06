@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_bonus.h                                        :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:23:10 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/06 17:49:03 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/07/07 03:48:58 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_BONUS_H
-# define MAP_BONUS_H
+#ifndef MAP_H
+# define MAP_H
 
 # include <stdlib.h>
 
@@ -41,7 +41,6 @@ typedef union u_color
 
 typedef struct s_edge
 {
-	int			drawable;
 	t_point3	d3;
 	t_point2	d2;
 	t_color		color;

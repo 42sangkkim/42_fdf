@@ -6,12 +6,12 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:47:27 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/06 23:37:23 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/07/07 03:15:49 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "map_bonus.h"
+#include "map.h"
 #include "utils.h"
 
 void	parse_xy(t_map *map);

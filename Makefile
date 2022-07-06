@@ -6,7 +6,7 @@
 #    By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 00:12:03 by sangkkim          #+#    #+#              #
-#    Updated: 2022/07/07 03:07:52 by sangkkim         ###   ########seoul.kr   #
+#    Updated: 2022/07/07 04:44:29 by sangkkim         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,25 +20,25 @@ MLX_DIR=minilibx
 
 FT_DIR=libft
 
-ifdef TARGET_DIR
+ifdef BONUS
+TARGET_DIR:=$(BONUS_DIR)
 else
-TARGET_DIR=$(MANDATORY_DIR)
+TARGET_DIR:=$(MANDATORY_DIR)
 endif
+TARGET:=$(TARGET_DIR)/$(NAME)
 
 RM=rm
 RMFLAGS=-f
 
-$(NAME) : $(TARGET_DIR)/$(NAME)
-	cp $^ ./
+$(NAME) : $(TARGET)
+	@cp $< $@
 
-$(TARGET_DIR)/$(NAME) :
-	@make -C $(MLX_DIR)
-	@make -C $(FT_DIR)
+$(TARGET) :
+	make -C $(MLX_DIR)
+	make -C $(FT_DIR)
 	make -C $(TARGET_DIR)
-	
 
-
-.PHONY : all clean fclean re bonus
+.PHONY : $(TARGET) all clean fclean re bonus
 
 all : $(NAME)
 
@@ -55,4 +55,4 @@ fclean : clean
 re : fclean all
 
 bonus :
-	@make TARGET_DIR:=$(BONUS_DIR) all
+	@make BONUS=1 all
