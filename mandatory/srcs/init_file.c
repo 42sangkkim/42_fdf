@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 23:00:41 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 23:49:40 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/06 23:23:59 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_next_line(int fd);
 void	parse_next_line(char ****words_ptr, char *line, size_t line_cnt);
 int		is_valid_format(char *word);
 
-char	***read_file(char *filename)
+char	***get_file_data(char *filename)
 {
 	int		fd;
 	size_t	line_cnt;
@@ -61,7 +61,7 @@ void	parse_next_line(char ****words_ptr, char *line, size_t line_cnt)
 	(*words_ptr)[line_cnt + 1] = NULL;
 }
 
-int	is_valid(char ***words)
+int	check_file_data(char ***words)
 {
 	size_t	width;
 	size_t	i;

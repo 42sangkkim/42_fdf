@@ -5,42 +5,50 @@
 #                                                     +:+ +:+         +:+      #
 #    By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/07/04 20:07:42 by sangkkim          #+#    #+#              #
-#    Updated: 2022/07/05 00:08:26 by sangkkim         ###   ########.fr        #
+#    Created: 2022/07/06 21:10:08 by sangkkim          #+#    #+#              #
+#    Updated: 2022/07/07 01:24:55 by sangkkim         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := fdf
+NAME:=fdf
 
-SRCS := srcs/main.c srcs/init_file.c srcs/init_fdf.c srcs/hooks.c srcs/transform.c srcs/draw_fdf.c \
-		srcs/get_next_line.c srcs/utils1.c srcs/utils2.c
+SRC_DIR:=srcs/
+SRCS:=main_bonus.c \
+	draw_fdf_bonus.c \
+	draw_info_bonus.c \
+	get_next_line.c \
+	hooks_1_bonus.c \
+	hooks_2_bonus.c \
+	init_file.c \
+	init_map.c \
+	init_transform_bonus.c \
+	projection_bonus.c \
+	update_bonus.c \
+	utils1.c \
+	utils2.c
 
-INC_DIR := incs
+INC_DIR:=incs/
 
-CC := cc
-CFLAGS :=# -Wall -Wextra -Werror
+FT:=ft
+FT_DIR:=../libft
 
-RM := rm
-RMFLAGS := -f
+MLX:=mlx
+MLX_DIR:=../minilibx
 
-LIBFT_DIR := ../libft
-LIBFT := ft
+CC:=cc
+CFLAGS:=-Wall -Wextra -Werror
 
-MLX_DIR := ../minilibx
-MLX := mlx
+RM:=rm
+RMFLAGS:=-f
 
-$(NAME) : $(SRCS)
+$(NAME) : $(addprefix $(SRC_DIR), $(SRCS))
 	$(CC) $(CFLAGS) -o $@ $^ -I $(INC_DIR) \
-	-I $(LIBFT_DIR) -L $(LIBFT_DIR) -l $(LIBFT) \
-	-I $(MLX_DIR) -L $(MLX_DIR) -l $(MLX) -framework OpenGL -framework AppKit
+		-I $(FT_DIR) -L $(FT_DIR) -l $(FT) \
+		-I $(MLX_DIR) -L $(MLX_DIR) -l $(MLX) -framework OpenGL -framework AppKit
 
-.PHONY : all clean fclean re
-
-all : $(NAME)
+.PHONY : clean re
 
 clean :
 	$(RM) $(RMFLAGS) $(NAME)
 
-fclean : clean
-
-re : fclean all
+re : clean $(NAME)

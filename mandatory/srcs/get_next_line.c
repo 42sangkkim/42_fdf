@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 22:11:10 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 23:21:52 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/07 03:01:17 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 #include "libft.h"
 
-#define BUFFER_SIZE 100
-
 char	*append_buffer(char *mem, char *buf, ssize_t buf_len);
 char	*pop_line(char **mem_ptr);
 
@@ -24,14 +22,14 @@ char	*get_next_line(int fd)
 {
 	static char	*memory;
 	char		*tmp;
-	char		buffer[BUFFER_SIZE + 1];
+	char		buffer[101];
 	ssize_t		read_len;
 
 	if (!memory)
 		memory = ft_strdup("");
 	while (memory && !ft_strchr(memory, '\n'))
 	{
-		read_len = read(fd, buffer, BUFFER_SIZE);
+		read_len = read(fd, buffer, 100);
 		if (read_len == 0)
 			break ;
 		memory = append_buffer(memory, buffer, read_len);

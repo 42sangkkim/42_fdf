@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   transform_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 23:55:23 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 23:56:49 by sangkkim         ###   ########.fr       */
+/*   Created: 2022/07/06 17:49:16 by sangkkim          #+#    #+#             */
+/*   Updated: 2022/07/06 23:26:57 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#ifndef TRANSFORM_BONUS_H
+# define TRANSFORM_BONUS_H
 
-typedef union u_color
+typedef struct s_quaternion
 {
-	int	value;
-	struct s_rgb
-	{
-		unsigned char	b;
-		unsigned char	g;
-		unsigned char	r;
-	}	rgb;
-}	t_color;
+	double	w;
+	double	x;
+	double	y;
+	double	z;
+}	t_quaternion;
+
+typedef struct s_transform
+{
+	double			fov;
+	double			zoom;
+	double			dx;
+	double			dy;
+	t_quaternion	quaternion;
+	double			rotation_vector[3][3];
+}	t_transform;
 
 #endif

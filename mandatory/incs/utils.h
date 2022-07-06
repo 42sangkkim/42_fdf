@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:05:07 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/04 20:04:42 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:35:53 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define UTILS_H
 
 # include <stdlib.h>
-# include "fdf.h"
+# include "fdf_bonus.h"
 
 // utils1.c
 size_t	ft_arrlen(void **arr);
