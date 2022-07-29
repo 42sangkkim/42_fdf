@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"math.h": "c",
-		"vector": "c",
-		"iosfwd": "c",
-		"iterator": "c"
-	}
-}

@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:20:28 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/07/07 03:02:28 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/07/07 05:34:02 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	init_mlx(t_fdf *fdf, char *file_name)
 	if (!fdf->win_ptr)
 		exit_msg("[ERROR] window didn't created\n");
 	fdf->axis_bg = mlx_xpm_file_to_image(fdf->mlx_ptr,
-			"./axis_bg.xpm", &an_sum, &an_sum);
+			"./bonus/axis_bg.xpm", &an_sum, &an_sum);
 	if (!fdf->axis_bg)
 		exit_msg("[ERROR] image didn't created\n");
 	mlx_hook(fdf->win_ptr, EVENT_KEY_PRESS, 0, &key_hook, fdf);
